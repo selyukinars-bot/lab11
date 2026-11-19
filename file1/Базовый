@@ -1,0 +1,123 @@
+BASH
+npm create vite@latest lab11-react -- --template react
+cd lab11-react
+npm install
+npm run dev
+
+
+import { useState } from "react";
+
+function LikeButton({ title }) {
+    const [likes, setLikes] = useState(0);
+
+    function addLike() {
+        setLikes(likes + 1);
+    }
+
+    function resetLikes() {
+        setLikes(0);
+    }
+
+    return (
+        <div className="like-card">
+            <h2>{title}</h2>
+
+            <p className="likes">
+                ❤️ {likes}
+            </p>
+
+            <button onClick={addLike}>
+                Поставить лайк
+            </button>
+
+            <button onClick={resetLikes} className="reset">
+                Сбросить
+            </button>
+        </div>
+    );
+}
+
+export default LikeButton;
+--------------------------------------------------
+import LikeButton from "./components/LikeButton";
+
+function App() {
+    return (
+        <div className="container">
+            <h1>Счётчик лайков</h1>
+
+            <LikeButton title="Моя первая публикация" />
+
+            <LikeButton title="Моя вторая публикация" />
+        </div>
+    );
+}
+
+export default App;
+--------------------------------------------
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+}
+
+.container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+h1 {
+    color: #1e293b;
+}
+
+.like-card {
+    background: white;
+    width: 320px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.likes {
+    font-size: 30px;
+    font-weight: bold;
+    color: #e11d48;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.reset {
+    background: #64748b;
+}
+
+.reset:hover {
+    background: #475569;
+}
+--------------------------------------------
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./App.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
