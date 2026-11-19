@@ -1,0 +1,170 @@
+Bash
+npm create vite@latest lab11-react -- --template react
+cd lab11-react
+npm install
+npm run dev
+
+
+
+function CourseCard({ course, onSelect }) {
+    return (
+        <div className="course-card">
+            <h2>{course.title}</h2>
+
+            <p>{course.description}</p>
+
+            <button onClick={() => onSelect(course)}>
+                Подробнее
+            </button>
+        </div>
+    );
+}
+
+export default CourseCard;
+--------------------------
+import { useState } from "react";
+import CourseCard from "./components/CourseCard";
+
+function App() {
+    const courses = [
+        {
+            id: 1,
+            title: "Основы JavaScript",
+            description: "Изучение основ программирования на JavaScript.",
+            details: "На курсе изучаются переменные, функции, массивы, объекты и работа с DOM.",
+            duration: "4 недели"
+        },
+        {
+            id: 2,
+            title: "React для начинающих",
+            description: "Создание интерфейсов с помощью React.",
+            details: "На курсе изучаются компоненты, props, state, useState и события.",
+            duration: "6 недель"
+        },
+        {
+            id: 3,
+            title: "HTML и CSS",
+            description: "Создание и оформление веб-страниц.",
+            details: "На курсе изучаются HTML-разметка, CSS-стили, Flexbox и Grid.",
+            duration: "3 недели"
+        }
+    ];
+
+    const [selectedCourse, setSelectedCourse] = useState(null);
+
+    return (
+        <div className="container">
+            <h1>Каталог курсов</h1>
+
+            <div className="course-list">
+                {courses.map(course => (
+                    <CourseCard
+                        key={course.id}
+                        course={course}
+                        onSelect={setSelectedCourse}
+                    />
+                ))}
+            </div>
+
+            {selectedCourse && (
+                <div className="details">
+                    <h2>{selectedCourse.title}</h2>
+
+                    <p>{selectedCourse.details}</p>
+
+                    <p>
+                        <strong>Продолжительность:</strong>{" "}
+                        {selectedCourse.duration}
+                    </p>
+
+                    <button onClick={() => setSelectedCourse(null)}>
+                        Закрыть
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+}
+
+export default App;
+---------------------------------
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #1e293b;
+}
+
+.course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.course-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.course-card h2 {
+    color: #2563eb;
+}
+
+.course-card p {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.details {
+    background: white;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid #2563eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.details p {
+    line-height: 1.6;
+}
+-------------------------------------
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./App.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
